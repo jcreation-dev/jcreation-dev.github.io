@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Venn Diagram</title>
+    <link rel="stylesheet" href="index.css">
+<link rel="icon" href="icon-01.png">
+<link rel="stylesheet" href="css/fontawesome-free-5.0.13/web-fonts-with-css/css/fontawesome-all.min.css" />
+    <link href="css/material_icon.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+    <script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body>
+
+    <ul id="nav-mobile" class="sidenav sidenav-fixed grey lighten-3" style="transform: translateX(0px);">
+<li style="padding-left:20px;padding-right:20px; font-size: 30px; font-weight: bolder;" class="blue white-text">
+            Venn Diagram  
+        </li>
+        <a id="btnSetting" style="margin:5px;" class="right btn-floating red pulse tooltipped" data-position="right" data-tooltip="Clear All">
+            <i class="material-icons">refresh</i>
+        </a>
+        <li style="padding-left:20px;padding-right:20px">
+           
+            <div class="switch">
+                <label>
+                    Two Set
+                    <input id="threeSet" type="checkbox">
+                    <span class="lever"></span>
+                    Three Set
+                </label>
+            </div>
+           
+    
+            <div class="input-field" style="width: 200px;display: inline-block;">
+                <input id="uSetName" placeholder="" data="nameU" class="inpName" type="text" value="U">
+                <label for="uSetName">Universal Set:</label>
+            </div> =
+            <div id="universalSet" class="chips chips-placeholder chips-autocomplete">
+                {<input class="custom-class">}
+            </div>
+
+            <div class="input-field" style="width: 200px;display: inline-block;">
+                <input id="fSetName" placeholder="" data="nameA" class="inpName" type="text" value="A" class="validate" required>
+                <label for="fSetName">First Set:</label>
+            </div>
+            =
+            <div id="firstSet" class="chips chips-placeholder chips-autocomplete">
+                {<input class="custom-class">}
+            </div>
+
+            <div class="input-field" style="width: 200px;display: inline-block;">
+                <input id="sSetName" placeholder="" data="nameB" class="inpName" type="text" value="B" class="validate" required>
+                <label for="sSetName">Second Set:</label>
+            </div>
+            =
+            <div id="secondSet" class="chips chips-placeholder chips-autocomplete">
+                {<input class="custom-class">}
+            </div>
+
+            <div class="thirdPhane hide">
+                <div class="input-field" style="width: 200px;display: inline-block;">
+                    <input id="tSetName" placeholder="" data="nameC" class="inpName" type="text" value="C" class="validate" required>
+                    <label for="tSetName">Second Set:</label>
+                </div>
+                =
+                <div id="thirdSet" class="chips chips-placeholder chips-autocomplete">
+                    {<input class="custom-class">}
+                </div>
+            </div>
+        </li>
+<li style="padding-left:15px;padding-right:20px">
+    <span class="blue white-text br-max p5">Select Operation</span>
+</li>
+        <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Union
+(&cup;) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect waves-orange" onclick="unionClick(['firstSet', 'secondSet'], ['letterA', 'letterB', 'letterAB', 'letterBC', 'letterAC', 'letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cup; <span class="nameB">B</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="unionClick(['firstSet', 'thirdSet'], ['letterA', 'letterC', 'letterAB', 'letterBC', 'letterAC', 'letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cup; <span class="nameC">C</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="unionClick(['secondSet', 'thirdSet'], ['letterB', 'letterC', 'letterAB', 'letterBC', 'letterAC', 'letterABC'])"><span
+                                        class="nameB">B</span>
+                                    &cup; <span class="nameC">C</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="unionClick(['firstSet', 'secondSet', 'thirdSet'], ['letterA', 'letterB', 'letterC', 'letterAB', 'letterBC', 'letterAC', 'letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cup; <span class="nameB">B</span> &cup; <span class="nameC">C</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Intersection
+(&cap;) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a id="intersection" class="waves-effect waves-orange" onclick="intersectionClick(['firstSet', 'secondSet'], ['letterAB','letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cap; <span class="nameB">B</span></a></li>
+                            <li><a id="intersection" class="waves-effect waves-orange thirdPhane hide" onclick="intersectionClick(['firstSet', 'thirdSet'], ['letterAC', 'letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cap; <span class="nameC">C</span></a></li>
+                            <li><a id="intersection" class="waves-effect waves-orange thirdPhane hide" onclick="intersectionClick(['secondSet', 'thirdSet'], ['letterBC', 'letterABC'])"><span
+                                        class="nameB">B</span>
+                                    &cap; <span class="nameC">C</span></a></li>
+                            <li><a id="intersection" class="waves-effect waves-orange thirdPhane hide" onclick="intersectionClick(['firstSet', 'secondSet', 'thirdSet'], ['letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &cap; <span class="nameB">B</span> &cap;
+                                    <span class="nameC">C</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+<li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Difference (-) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a class="waves-effect waves-orange" onclick="differenceClick(['firstSet', 'secondSet'], ['letterA','letterAC'])">
+                                    <span class="nameA">A</span>-<span class="nameB">B</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-orange" onclick="differenceClick(['secondSet', 'firstSet'], ['letterB', 'letterBC'])">
+                                    <span class="nameB">B</span>-<span class="nameA">A</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-orange thirdPhane hide" onclick="differenceClick(['thirdSet', 'secondSet'], ['letterC', 'letterAC'])">
+                                    <span class="nameC">C</span>-<span class="nameB">B</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-orange thirdPhane hide" onclick="differenceClick(['secondSet', 'thirdSet'], ['letterB', 'letterAB'])">
+                                    <span class="nameB">B</span>-<span class="nameC">C</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-orange thirdPhane hide" onclick="differenceClick(['firstSet', 'thirdSet'], ['letterA', 'letterAB'])">
+                                    <span class="nameA">A</span>-<span class="nameC">C</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="waves-effect waves-orange thirdPhane hide" onclick="differenceClick(['thirdSet', 'firstSet'], ['letterC', 'letterBC'])">
+                                    <span class="nameC">C</span>-<span class="nameA">A</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Symmetric
+Difference (&oplus;) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect waves-orange" onclick="symmetricClick(['firstSet', 'secondSet'], ['letterA', 'letterB', 'letterBC', 'letterAC'])"><span
+                                        class="nameA">A</span> &oplus; <span class="nameB">B</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="symmetricClick(['firstSet', 'thirdSet'], ['letterA', 'letterC', 'letterAB', 'letterBC'])"><span
+                                        class="nameA">A</span>
+                                    &oplus; <span class="nameC">C</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="symmetricClick(['secondSet', 'thirdSet'], ['letterB', 'letterC', 'letterAB', 'letterAC'])"><span
+                                        class="nameB">B</span>
+                                    &oplus; <span class="nameC">C</span></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="symmetricClick(['firstSet', 'secondSet', 'thirdSet'], ['letterA', 'letterB', 'letterC', 'letterABC'])"><span
+                                        class="nameA">A</span>
+                                    &oplus; <span class="nameB">B</span> &oplus; <span class="nameC">C</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Complement (Set
+<sup>c</sup>) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect waves-orange" onclick="complementClick('firstSet')"><span class="nameA">A</span><sup>c</sup></a></li>
+                            <li><a class="waves-effect waves-orange" onclick="complementClick('secondSet')"><span class="nameB">B</span><sup>c</sup></a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="complementClick('thirdSet')"><span
+                                        class="nameC">C</span><sup>c</sup></a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Power Set (P(Set)) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a class="waves-effect waves-orange" onclick="powerClick('universalSet')">P(<span class="nameU">Universal Set</span>)</a></li>
+                            <li><a class="waves-effect waves-orange" onclick="powerClick('firstSet')">P(<span class="nameA">A</span>)</a></li>
+                            <li><a class="waves-effect waves-orange" onclick="powerClick('secondSet')">P(<span class="nameB">B</span>)</a></li>
+                            <li><a class="waves-effect waves-orange thirdPhane hide" onclick="powerClick('thirdSet')">P(<span class="nameC">C</span>)</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal" tabindex="0">Cartesian Product
+(×) <i class="fa fa-caret-down fs-20 right"></i></a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a onclick="cartesianClick(['firstSet', 'secondSet'])" class="waves-effect waves-orange"><span
+                                        class="nameA">A</span> × <span class="nameB">B</span></a></li>
+                            <li><a onclick="cartesianClick(['secondSet', 'firstSet'])" class="waves-effect waves-orange"><span
+                                        class="nameB">B</span> × <span class="nameA">A</span></a></li>
+                            <li><a onclick="cartesianClick(['firstSet', 'thirdSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameA">A</span> ×
+                                    <span class="nameC">C</span></a></li>
+                            <li><a onclick="cartesianClick(['thirdSet', 'firstSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameC">C</span> ×
+                                    <span class="nameA">A</span></a></li>
+                            <li><a onclick="cartesianClick(['secondSet', 'thirdSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameB">B</span> ×
+                                    <span class="nameC">C</span></a></li>
+                            <li><a onclick="cartesianClick(['thirdSet', 'secondSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameC">C</span> ×
+                                    <span class="nameB">B</span></a></li>
+                            <li><a onclick="cartesianClick(['firstSet', 'secondSet', 'thirdSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameA">A</span> ×
+                                    <span class="nameB">B</span> × <span class="nameC">C</span></a></li>
+                            <li><a onclick="cartesianClick(['firstSet', 'thirdSet', 'secondSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameA">A</span> ×
+                                    <span class="nameC">C</span> × <span class="nameB">B</span></a></li>
+                            <li><a onclick="cartesianClick(['secondSet', 'firstSet', 'thirdSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameB">B</span> ×
+                                    <span class="nameA">A</span> × <span class="nameC">C</span></a></li>
+                            <li><a onclick="cartesianClick(['secondSet', 'thirdSet', 'firstSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameB">B</span> ×
+                                    <span class="nameC">C</span> × <span class="nameA">A</span></a></li>
+                            <li><a onclick="cartesianClick(['thirdSet', 'firstSet', 'secondSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameC">C</span> ×
+                                    <span class="nameA">A</span> × <span class="nameB">B</span></a></li>
+                            <li><a onclick="cartesianClick(['thirdSet', 'secondSet', 'firstSet'])" class="waves-effect waves-orange thirdPhane hide"><span
+                                        class="nameC">C</span> ×
+                                    <span class="nameB">B</span> × <span class="nameA">A</span></a></li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="bold" style="padding-left:17px;">
+                    <div class="switch">
+                        <label>
+                            Bit Result
+                            <input id="bitResult" onclick="processVenn()" type="checkbox">
+                            <span class="lever"></span>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </li>
+
+    </ul>
+<div class="row">
+    <div class="col s12 center">
+    <main style="margin-top: 20px;">
+        
+        <article class="Venn" id="mainVenn">
+            <div class="circle one">
+                <span></span>
+                <span id="leftSpan"></span>
+                <h3 class="nameA">A</h3>
+                <p id="letterA" class="tooltipped" data-position="top" data-tooltip="">
+                    
+                </p>
+            </div>
+            <div class="circle two">
+                <span id="rightSpan"></span>
+                <span></span>
+                <h3 class="nameB">B</h3>
+                <p id="letterB" class="tooltipped" data-position="top" data-tooltip="">
+                   
+                </p>
+            </div>
+            <div class="circle three thirdPhane hide">
+                <span></span>
+                <span></span>
+                <h3 class="nameC">C</h3>
+                <p id="letterC" class="tooltipped" data-position="top" data-tooltip="">
+        
+                </p>
+            </div>
+            <div class="shape onetwo">
+                <span id="middleSpan1"></span>
+                <span id="middleSpan2"></span>
+                <h3>A + B</h3>
+                <p id="letterAB" class="tooltipped" data-position="top" data-tooltip="">
+                  
+                </p>
+            </div>
+            <div class="shape onethree thirdPhane hide">
+                <span></span>
+                <span></span>
+                <h3>One + Three</h3>
+                <p id="letterAC" class="tooltipped" data-position="top" data-tooltip="">
+     
+                </p>
+            </div>
+            <div class="shape twothree thirdPhane hide">
+                <span></span>
+                <span></span>
+                <h3>Two + Three</h3>
+                <p id="letterBC" class="tooltipped" data-position="top" data-tooltip="">
+                  
+                </p>
+            </div>
+            <div class="shape onetwothree thirdPhane hide">
+                <span></span>
+                <span></span>
+                <h3>One + Two + Three</h3>
+                <p id="letterABC" class="tooltipped" data-position="top" data-tooltip="">
+                   
+                </p>
+            </div>
+        </article>
+
+        <article id="oneVennCircle" class="Venn oneVennCircle hide">
+            <div class="circle one">
+                <span></span>
+                <span></span>
+                <h4 class="nameOneSet">
+                </h4>
+                <p id="letterOne" class="tooltipped" data-position="top" data-tooltip="">
+                </p>
+            </div>
+
+        </article>
+
+    </main>
+    </div>
+    </div>
+
+    
+<!-- Modal Structure History-->
+<div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content center">
+
+
+    <div id="historyCo" class="carousel carousel-slider center">
+        <div class="carousel-item white" href="#one!">
+          <h6 class=""><b>A Short History of Venn Diagram</b></h6>
+        <img src="venn.png" class="responsive-img" style="width: 400px;">
+        <p class="con-desc">Venn diagrams are illustrations of circles that depict commonalities or differences between two
+            sets. What are sets, you may ask? A set is simply a grouping or collection of items. The items in a set are
+            actually called "<i>elements</i>." You indicate elements in a set by putting {brackets} around them.</p>
+        </div>
+        <div class="carousel-item white" href="#two!">
+          <h6 class=""><b>A Short History of Venn Diagram</b></h6>
+        <img src="venn.png" class="responsive-img" style="width: 400px;">
+            <p class="con-desc">English logician, John Venn was the inventor of the Venn Diagram in 1880. He constructed the Venn
+                Diagram to help illustrate inclusion and exclusion relationships between sets,except he did not call it the "Venn
+                diagram." He called the circles "Eulerian Circles." Clarence Lewis referred to the diagram in his book, A Survey of
+                Symbolic in 1918.</p>
+                
+                   
+        </div>
+        <div class="carousel-item white" href="#three!">
+            <p><b>For more info in using our app:</b></p>
+                <p>Go to <a class="btn-floating btn blue pulse">
+            <i class="large material-icons">settings</i>
+        </a> then <a class="btn-floating btn yellow pulse">
+            <i class="fa fa-question-circle"></i>
+        </a> </p>
+        
+          <img src="ok.png" style="width: 200px;height: 200px;">
+            <h2>DONE!</h2>
+
+        </div>
+  </div>
+
+    </div>
+    <div class="modal-footer">
+        <a id="btnHistoryNext" class="waves-effect waves-blue btn-flat blue white-text" onclick="$('#historyCo').carousel('next');">Next</a>
+        <a id="btnHistorySkipFinish" href="#!" class="modal-close waves-effect waves-blue btn-flat blue white-text modal-trigger" href="#modal2">Skip</a>
+    </div>
+</div>
+
+
+
+<!-- Modal Structure Help-->
+<div id="helpModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h5 class="mb-5"><i class="fa fa-question-circle"></i> Help</h5>
+    <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="fa fa-bars"></i> Side Navigation</div>
+      <div class="collapsible-body">
+        <p><i class="fa fa-caret-right grey-text"></i> In the Side Navigation, mostly this part will app ask some inputs to the user to the app which to be able to generate the results on what will user going to be input.</p>
+        <hr>
+            <p><b>Universal Set</b> - Is a set that contains all the subsets or first set, second set, and third set.</p>
+            <p><b>First Set</b> - The first circle and a set of element that is included in universal set. </p>
+            <p><b>Second Set</b> - The second circle and a set of element that is included in universal set. </p>
+            <p><b>Second Set</b> - The third circle and a set of element that is included in universal set. </p>
+            <p><b>SET OPERATIONS:</b></p>
+            <p><b>Union (&cup;)</b> - The combination of two or more set. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {1, 2, 3}, B = {3, 4, 5} Then A &cup; B = {1, 2, 3, 4, 5} </p>
+            <p><b>Intersection (&cap;)</b> - The elements of two set that is similar. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {1, 2, 3}, B = {3, 4, 5} Then A &cap; B = {3} </p>
+            <p><b>Difference (-)</b> - Removing the elements of a set that is in the another set.</p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {1, 2, 3}, B = {3, 4, 5} Then A - B = {1, 2} </p>
+            <p><b>Symmetric Difference (&oplus;)</b> - The elements of two set that is not included to the two set. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {1, 2, 3}, B = {3, 4, 5} Then A &oplus; B = {1, 2, 4, 5} </p>
+            <p><b>Compliment Set (Set <sup>c</sup>)</b> - The element of universal set that is not in the being complimented set. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. Universal Set = {1, 2, 3}, B = {3, 2} Then A <sup>c</sup> = {1} </p>
+            <p><b>Power Set (P(Set))</b> - Is a collection of possible subset of a set. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {3, 2} Then P(A) = {&empty;, 3, 2, {3, 2}} </p>
+            <p><b>Cartesian Product (×)</b> - Multiplication of two set. </p>
+            <p class="p5 grey lighten-3 br-max">Ex. A = {1, 2}, B = {3, 4} Then A × B = {(1, 3), (1, 4), (2, 3), (2, )} </p>
+      </div>
+    </li>
+   <li>
+      <div class="collapsible-header"><i class="fa fa-cog"></i> Menu Button</div>
+      <div class="collapsible-body">
+        <p>
+         <a class="btn-floating btn blue">
+    <i class="large material-icons">settings</i>
+  </a> <b>Menu Button</b> -<span class="grey-text"> It is a button on which it will give you some more options on your Venn Diagram.
+</span></p>
+
+<p>
+         <a class="btn-floating btn green">
+    <i class="fas fa-history"></i>
+  </a> <b>View History</b> -<span class="grey-text"> It is a button includes Menu Button which will proceed you to the short history of the Venn Diagram</p>
+  </span><p>
+         <a class="btn-floating btn yellow">
+    <i class="fas fa-question-circle"></i>
+  </a> <b>Help</b> -<span class="grey-text"> It is a button that will proceed you to this page, wether if you want an information to know about the app.</span></p>
+  <p>
+  <a class="btn-floating btn red">
+    <i class="material-icons">refresh</i>
+  </a> <b>Clear Inputs</b> -<span class="grey-text"> This button will make your inputs and diagram to be clear and back to reset.</span></p>
+    <p>
+  <a class="btn-floating btn black white-text">
+    <i class="fa fa-info"></i>
+  </a> <b>Results Information</b> - <span class="grey-text"> This button will show you the more information about the results in you Venn Diagram.</span></p>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="far fa-circle"></i> Sets</div>
+      <div class="collapsible-body">
+        <img src="sets.png">
+        <img src="sets1.png">
+        <p>This swtich will enable you the Venn Diagram if you want a <b>2</b> or <b>3</b> Sets.</p>
+      </div>
+    </li>
+     <li>
+      <div class="collapsible-header"><i class="fas fa-tachometer-alt"></i> Bit Result</div>
+      <div class="collapsible-body">
+        <img src="bit.png">
+         <img src="bit1.png">
+<p>This swtich will enable you to make your result as a Bit Result.
+</p>
+      </div>
+    </li>
+<li>
+      <div class="collapsible-header"><i class="fa fa-info"></i> About</div>
+      <div class="collapsible-body">
+<p class="grey-text">
+    <b>Venn Diagram Web App</b><br>
+    <i class="fa fa-copyright"></i> <b>BSIT-IT4F 2019</b>:<br><br>
+    Capilitan, Jerry Emel<br>
+    Regalario, Jayson<br>
+    Figuracion, John Patrick<br>
+    Magtangob, Santiago<br>
+    Rementilla, Nyllaine<br>
+    Asuela, Joy Micah<br><br>
+    Quezon City Polytechnic University, BSIT<br>
+    Ms. Lalaine Josefa L. Carrao
+</p>
+      </div>
+    </li>
+  </ul>
+    
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-blue btn-flat blue white-text modal-trigger" href="#helpModal">Close</a>
+    </div>
+</div>
+
+<!-- MOdal Venn Info -->
+<div id="vennInfo" class="modal modal-fixed-footer">
+    <div class="modal-content center">
+        <div class="row">
+            <div class="col s12">  
+               <h6 class="blue br-max white-text p20">Cardinality</h6>
+                <div class="card-panel white" id="setInfo">
+                     
+                   
+                    <img src="sleeping-cat.png">
+                     <p class="grey-text">No inputs yet.</p>
+                </div>
+            </div>
+            <div class="col s12">
+             <h6 class="blue br-max white-text p20">Result</h6>
+
+                <div class="card-panel white" id="setVaryInfo">
+                       
+                    
+                    <img src="sleeping-cat.png">
+                    <p class="grey-text">No operation selected yet.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a  href="#!" class="modal-close waves-effect waves-blue btn-flat blue white-text modal-trigger" href="#vennInfo">Close</a>
+    </div>
+</div>
+
+
+
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large blue pulse p20">
+    <i class="large material-icons">settings</i>
+  </a>
+  <ul>
+    <li><a onclick="$('#vennInfo').modal().modal('open');" class="btn-floating black tooltipped" data-position="left" data-tooltip="Venn Info"><i class="fa fa-info"></i></a></li>
+
+ 
+    <li><a onclick="$('#helpModal').modal().modal('open'); $('#helpCo').carousel('set', 0);" class="btn-floating yellow darken-1 tooltipped" data-position="left" data-tooltip="Help"><i class="fas fa-question-circle"></i></a></li>
+
+    <li><a onclick="$('#modal1').modal().modal('open'); $('#historyCo').carousel('set', 0);" class="btn-floating green tooltipped" data-position="left" data-tooltip="View History"><i class="fas fa-history"></i></a></li>
+  </ul>
+</div>
+
+  
+
+    <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+   
+</body>
+
+</html>

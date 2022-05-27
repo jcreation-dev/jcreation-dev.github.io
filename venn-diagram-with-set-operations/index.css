@@ -1,0 +1,503 @@
+main {
+    /* 	outline: 1px dotted #ccc; */
+    width: calc(100% * var(--venn-width-mult));
+    margin: 0 0 0 260px;
+}
+
+*{
+font-family: 'Roboto', sans-serif;
+}
+
+:root {
+    --venn-width-mult: 0.9;
+}
+
+@media print {
+    :root {
+        --venn-width-mult: 1;
+    }
+}
+
+/* Defaults for browsers that do not support shape-outside */
+@media (min-width: 800px) {
+    .Venn::after {
+        content: "";
+        display: block;
+        width: 5px;
+        height: 5px;
+        clear: both;
+    }
+
+    .circle,
+    .shape {
+        border: 0.1em solid rgba(0, 0, 0, 0.5);
+        margin: 0 0.75%;
+        padding: 0 1.5em;
+        float: left;
+        width: 32%;
+    }
+
+    .circle.one {
+        margin-left: 0;
+    }
+
+    .circle.three {
+        margin-right: 0;
+    }
+
+    .shape {
+        width: 30%;
+        margin: 1em 1%;
+    }
+
+    .shape.onetwo {
+        margin-left: 2.5%;
+        clear: left;
+        border-top-right-radius: 1em;
+    }
+
+    .shape.twothree {
+        margin-right: 2.5%;
+        border-top-left-radius: 1em;
+    }
+
+    .shape.onethree {
+        margin-top: 3em;
+        border-top-right-radius: 1em;
+        border-top-left-radius: 1em;
+    }
+
+    .shape.onetwothree {
+        clear: both;
+        width: 40%;
+        margin-left: 30%;
+        margin-right: 30%;
+        border-radius: 1.5em;
+    }
+}
+
+@supports (shape-outside: polygon(0 0, 0 50%, 50% 50%)) {
+    .Venn::after {
+        display: none;
+    }
+
+    .Venn>div {
+        border: 0.2em solid rgba(0, 0, 0, 0.5);
+        font-size: calc(2.5vw * var(--venn-width-mult));
+        line-height: 1.3;
+        overflow: hidden;
+    }
+
+    .Venn>.shape {
+        font-size: calc(2.25vw * var(--venn-width-mult));
+        border: initial;
+        width: initial;
+        margin: initial;
+        padding: initial;
+    }
+
+    .Venn>.circle {
+        border-radius: 50%;
+        width: initial;
+        margin: initial;
+        padding: initial;
+    }
+
+    /* Grid layout  */
+    .Venn {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(3, calc(25.8vw * var(--venn-width-mult)));
+        width: 84%;
+        margin-left: 70px;
+    }
+
+    .Venn>h2 {
+        grid-column-start: 1;
+        grid-column-end: 6;
+        grid-row-start: 0;
+        grid-row-end: 1;
+    }
+
+    .Venn>.circle.one {
+        /*   outline: .2em solid #f00; */
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        background-color: red;
+    }
+
+    .Venn>.circle.two {
+        /*   outline: .2em solid #0f0; */
+        grid-column-start: 3;
+        grid-column-end: 6;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        background-color: blue;
+    }
+
+    .Venn>.circle.three {
+        /*   outline: .2em solid #00f; */
+        grid-column-start: 2;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 4;
+        background-color: lime;
+
+    }
+
+    .Venn>.circle.one,
+    .Venn>.circle.two,
+    .Venn>.circle.three {
+        mix-blend-mode: difference;
+    }
+
+    .Venn>.shape.onetwo {
+        /*   outline: .2em solid #ff0; */
+        grid-column-start: 3;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        /*grid-row-end: 2;*/
+
+
+        grid-row-end: 3;
+        height: 84%;
+
+        z-index: 1;
+    }
+
+    .Venn>.shape.onethree {
+        /*   outline: .2em solid #f0f; */
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        z-index: 1;
+
+    }
+
+    .Venn>.shape.twothree {
+        /*   outline: .2em solid #0ff; */
+        grid-column-start: 3;
+        grid-column-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        z-index: 1;
+
+    }
+
+    .Venn>.shape.onetwothree {
+        /*   outline: .2em solid #fff; */
+        grid-column-start: 3;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 2;
+        z-index: 1;
+
+    }
+
+    /* Text wrap */
+    .Venn .circle,
+    .Venn .shape {
+        text-align: center;
+    }
+
+    .Venn .circle span,
+    .Venn .shape span {
+        float: right;
+        /*     border: 1px dotted #00f;
+    background-color: rgba(0,0,0,.1); */
+    }
+
+    .Venn .circle>span {
+        width: calc(58.5vw * var(--venn-width-mult));
+        height: calc(58.5vw * var(--venn-width-mult));
+    }
+
+    .Venn .shape>span {
+        /*height: calc(29vw * var(--venn-width-mult));*/
+
+        height: calc(50vw * var(--venn-width-mult));
+    }
+
+    .Venn .one>span {
+        float: left;
+        width: 32%;
+        shape-margin: 0;
+        shape-outside: polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%, 128% 89.43%, 89% 86.04%, 48.62% 78.93%, 23.37% 68.33%, 10% 60%, 5% 50%, 5.63% 38.03%, 14.63% 27.63%, 28.63% 16.03%, 66.38% 7.14%, 98.00% 3.03%);
+    }
+
+    .Venn .one>span+span {
+        float: right;
+        width: 66%;
+
+        /* for two circles*/
+
+        shape-outside: polygon(100% 0%, 40% 0%, 74.09% 11.62%, 60.76% 22.33%, 53.3% 32.44%, 49.03% 41.14%, 49.79% 50.26%, 53% 58.26%, 59.69% 66.67%, 73.53% 79.82%, 44.3% 88.93%, 5.15% 89.02%, 100% 100%);
+    }
+
+    .Venn .two>span {
+        float: left;
+        width: 66%;
+        shape-margin: 0;
+
+        /* for two circles*/
+        shape-outside: polygon(0% 0%, 59% 0%, 22.94% 10.63%, 41% 25%, 47% 34%, 49.3% 41.4%, 48.76% 50.41%, 45.82% 59.34%, 39.18% 68.3%, 26.03% 79.53%, 46.75% 87.19%, 96.66% 88.83%, 0% 100%);
+    }
+
+    .Venn .two>span+span {
+        float: right;
+        width: 32%;
+        shape-outside: polygon(0% 0%, 109.37% 0.22%, 117.37% 99.18%, -18.00% 98.18%, -16.75% 89.25%, 12% 85.14%, 48.38% 78.22%, 74% 69.59%, 89.5% 61%, 97.13% 50%, 100.25% 40%, 89.25% 28.03%, 69% 17.63%, 37.62% 8.4%, 0.62% 3.15%);
+    }
+
+    .Venn .three>span {
+        float: left;
+        width: 49%;
+        shape-margin: 0;
+        shape-outside: polygon(-8.49% 3.17%, 100% 0%, 101.50% 33.21%, 74.5% 40.89%, 45.51% 44.57%, 0% 42.98%, 0.01% 53.66%, 10.5% 66.38%, 23.51% 75.02%, 46.01% 83.66%, 72.5% 88.89%, 105% 90.21%, 111.99% 100.45%, -13.48% 98.42%);
+    }
+
+    .Venn .three>span+span {
+        float: right;
+        shape-outside: polygon(104.49% 0.00%, 0% 0%, -2.5% 32.98%, 28% 41.12%, 64.98% 44.12%, 100% 42.08%, 95% 60%, 85% 68.87%, 69% 78.19%, 43.51% 85.7%, 20% 89.79%, -6.99% 90.66%, -7.99% 98.87%, 100.5% 98.87%);
+    }
+
+    .Venn .onetwo>span {
+        float: left;
+        width: 49%;
+        shape-margin: 0;
+        /* shape-outside: polygon(0% 0%, 3% 0%, 127% 7%, 27% 32%, 2% 51%, 9% 52%, 100% 53%, 100% 86%, 100% 98%, 100% 100%, 0% 100%); */
+
+
+        /* for two circles*/
+
+        shape-outside: polygon(163% 3%, 47% 24%, -1.98% 50.73%, 19.8% 73.47%, 75.22% 88.57%, 152% 98%, 4% 99%, 0% 2%);
+    }
+
+    .Venn .onetwo>span+span {
+        float: right;
+        /* shape-outside: polygon(104% -8%, -189% -8%, 46% 21%, 100% 51%, 0% 51%, 0% 70%, 0% 85%, 0% 98%, 0% 98%, 0% 100%, 100% 100%); */
+
+        /* for two circles */
+        shape-outside: polygon(100% 0%, -100% 0%, 55.63% 23.14%, 78.07% 34.73%, 96% 49%, 87% 70%, 65.41% 77.23%, 36.76% 85.88%, -1.44% 93.01%, -2.41% 101.39%, 107% 100%);
+    }
+
+    .Venn .onethree>span {
+        float: left;
+        width: 48%;
+        shape-margin: 0;
+        shape-outside: polygon(0% 0%, 100% 0%, 102.13% 4.7%, 80.5% 7.47%, 56.89% 12.53%, 32.49% 20.75%, 14.74% 30.95%, 4.69% 42.35%, 1.47% 49.49%, 28.01% 52.64%, 63.64% 53.29%, 98.3% 51.34%, 98.72% 59.64%, -3.84% 58.74%);
+    }
+
+    .Venn .onethree>span+span {
+        float: right;
+        width: 51%;
+        shape-outside: polygon(100% 0%, 0% 0%, 0.80% 7.74%, 17.02% 23.34%, 47.68% 38.49%, 28.77% 45.69%, -2.89% 51.19%, -21.66% 52.64%, 0% 100%, 100% 100%);
+    }
+
+    .Venn .twothree>span {
+        float: left;
+        width: 51%;
+        shape-margin: 0;
+        shape-outside: polygon(0% 0%, 100% 0%, 90.77% 15.85%, 72.95% 29.95%, 49.91% 39.09%, 68.83% 45.09%, 91.66% 49.24%, 112.44% 52.49%, 113.64% 61.29%, 5.21% 54.54%);
+    }
+
+    .Venn .twothree>span+span {
+        float: right;
+        width: 48%;
+        shape-outside: polygon(114.92% 0.3%, 0% 0%, -4.69% 4.1%, 40.23% 11.75%, 78.87% 27.65%, 94.46% 41.75%, 95.54% 50.99%, 63.03% 53.24%, 27.84% 52.69%, -9.8% 50.14%, -8.95% 59.34%, 112.36% 59.49%);
+    }
+
+    .Venn .onetwothree>span {
+        float: left;
+        width: 49%;
+        shape-margin: 0;
+        shape-outside: polygon(0% 0%, 15.85% 14.85%, 38.35% 24.95%, 65.87% 32.89%, 100.01% 39.09%, 102.51% 62.93%, -0.83% 62.63%);
+    }
+
+    .Venn .onetwothree>span+span {
+        float: right;
+        shape-outside: polygon(100% 0%, 87.49% 13.35%, 56.64% 27.35%, 19.94% 35.75%, -0.01% 38.94%, -0.84% 72.39%, 94.15% 72.84%);
+    }
+
+    .Venn .circle h3 {
+        margin: 0.5em 0 0 0;
+        text-align: center;
+        display: inline;
+    }
+
+    .Venn .circle h3+* {
+        margin-top: 0.2em;
+    }
+
+    .Venn .shape h3 {
+        clip-path: inset(100%);
+        clip: rect(1px, 1px, 1px, 1px);
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+    }
+}
+
+
+
+
+*
+{
+    box-sizing: border-box;
+}
+
+
+@supports (shape-outside: polygon(0 0, 0 50%, 50% 50%)) {
+    .oneVennCircle {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, calc(80vw * var(--venn-width-mult)));
+        width: 83%;
+        margin-left: 65px;
+    }
+
+    .oneVennCircle .one>span {
+        float: left;
+        width: 32%;
+        shape-margin: 0;
+        shape-outside: polygon(100% 0%, -11.79% 1.48%, -5.24% 135.17%, 159.83% 134.8%, 125.82% 134.04%, 76.34% 126.77%, 35.52% 112.25%, 7.21% 92.03%, -0.92% 72.03%, 4.56% 51.3%, 19.17% 35.07%, 37.78% 22.08%, 65.75% 12.14%, 81.66% 6.95%, 98% 3.03%);
+    }
+
+    .oneVennCircle .one>span+span {
+        float: right;
+        width: 66%;
+        shape-outside: polygon(100% 0%, 40% 0%, 69.86% 12.92%, 82.57% 23.81%, 93.74% 38.92%, 99.42% 57.62%, 99.55% 79.51%, 92.59% 97.69%, 80.23% 114.62%, 62.52% 127.4%, 37.74% 134.28%, 22.72% 135.12%, 100.85% 134.62%);
+    }
+}
+
+
+
+
+
+* ::-webkit-scrollbar {
+    width: 3px;
+
+}
+
+* ::-webkit-scrollbar-track {
+    background-color: white;
+
+}
+
+* ::-webkit-scrollbar-thumb {
+    background-color: #42a5f5;
+    outline: 1px solid slategrey;
+    border-radius: 100px;
+
+
+}
+
+
+body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.mySideNav {
+    position: fixed;
+    left: 0;
+    width: 200px;
+    background-color: aquamarine;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+p {
+    word-wrap: break-word;
+}
+
+.sidenav li>a>i,
+.sidenav li>a>[class^="mdi-"],
+.sidenav li>a li>a>[class*="mdi-"],
+.sidenav li>a>i.material-icons {
+    
+    margin: 0px 0px 0 0 !important;
+}
+
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #90CAF9 !important;
+    -webkit-box-shadow: 0 1px 0 0 #90CAF9 !important;
+    box-shadow: 0 1px 0 0 #90CAF9 !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+
+.con-desc{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.p20{
+    padding: 20px;
+}
+
+.p5 {
+    padding: 5px;
+}
+
+.mt-1{
+    margin-top: 10px;
+}
+
+.br-max {
+    border-radius: 100px;
+}
+
+.adj {
+        position: fixed !important;
+        bottom: 10px !important;
+        right: 10px;
+}
+
+.carousel{
+    height: 125% !important;
+}
+
+.mb-5{
+    margin-bottom: 5px;
+}
+
+.chip i
+{
+    font-size: 10px !important;
+    margin-top: -10px;
+    margin-right: -10px;
+    color: red;
+    font-weight: 900;
+}
+
+.chip:after
+{
+    content: ",";
+}
+
+#modal1 .modal-content
+{
+    overflow: hidden !important;
+}
