@@ -1,4 +1,21 @@
 "use strict";
+const images = ['icon-72x72', 'icon-96x96', 'icon-128x128', 'icon-144x144'];
+const imgElem = document.querySelector('img');
+let currentImg = 0;
+
+function randomValueFromArray(array) {
+    currentImg = currentImg > 3 ? 0 : currentImg;
+    return array[currentImg++];
+}
+
+setInterval(() => {
+    const randomChoice = randomValueFromArray(images);
+    imgElem.src = `images/icons/${randomChoice}.jpg`;
+}, 2000);
+
+
+
+
 // Register service worker to control making site work offline
 
 if ('serviceWorker' in navigator) {

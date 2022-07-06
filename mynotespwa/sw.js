@@ -6,6 +6,10 @@ self.addEventListener('install', (e) => {
             'https://popper.js.org',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css',
+            '/mynotespwa/images/icons/icon-72x72.png',
+            '/mynotespwa/images/icons/icon-96x96.png',
+            '/mynotespwa/images/icons/icon-128x128.png',
+            '/mynotespwa/images/icons/icon-144x144.png',
             '/mynotespwa/',
             '/mynotespwa/index.html',
             '/mynotespwa/index.js',
@@ -77,6 +81,8 @@ self.addEventListener('fetch', (e) => {
                 }
             })()
         );
+    } else {
+        console.log("not navication request");
     }
 });
 
