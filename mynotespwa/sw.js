@@ -37,7 +37,6 @@ self.addEventListener("activate", (event) => {
 
 
 self.addEventListener('fetch', (e) => {
-    console.log(e)
 
     // Only call event.respondWith() if this is a navigation request
     // for an HTML page.
