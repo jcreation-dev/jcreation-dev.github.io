@@ -57,73 +57,39 @@ self.addEventListener('fetch', (e) => {
 
     e.respondWith(
         (async () => {
-            const offlineCB = new Promise(async (resolve) => {
-                console.log("User is offline");
+            // First, try to use the navigation preload response if it's
+            // supported.
+            const preloadResponse = await e.preloadResponse;
+            if (preloadResponse) {
+                return preloadResponse;
+            }
+
+            try {
+
+                // Always try the network first.
+                const networkResponse = await fetch(e.request);
+                console.log("user is online");
+                return networkResponse;
+            } catch (error) {
+                // catch is only triggered if an exception is thrown, which is
+                // likely due to a network error.
+                // If fetch() returns a valid HTTP response with a response code in
+                // the 4xx or 5xx range, the catch() will NOT be called.
+                console.log("Fetch failed; returning offline page instead.", error);
 
                 const matchCached = await caches.match(e.request);
-                if (matchCached && matchCached.ok && matchCached.status) resolve(matchCached);
+                if (matchCached && matchCached.ok && matchCached.status) return matchCached;
                 else {
                     if (e.request.mode === "navigate") {
                         const cachedResponse = await cache.match(OFFLINE_URL);
-                        resolve(cachedResponse);
+                        return cachedResponse;
                     }
 
-                    resolve();
                     console.log(`The link ${e.request.url} is not cached`);
                     alert(`The link ${e.request.url} is not cached`);
                 }
-            });
 
-            if (window.navigator.onLine) {
-                const preloadResponse = await e.preloadResponse;
-                if (preloadResponse) {
-                    return preloadResponse;
-                }
-
-                try {
-                    // Always try the network first.
-                    const networkResponse = await fetch(e.request);
-                    console.log("user is online");
-                    return networkResponse;
-                } catch (er) {
-                    return await offlineCB();
-                }
-
-            } else {
-                return await offlineCB();
             }
-
-
-            // try {
-            //     // First, try to use the navigation preload response if it's
-            //     // supported.
-            //     const preloadResponse = await e.preloadResponse;
-            //     if (preloadResponse) {
-            //         return preloadResponse;
-            //     }
-            //     // Always try the network first.
-            //     const networkResponse = await fetch(e.request);
-            //     console.log("user is online");
-            //     return networkResponse;
-            // } catch (error) {
-            //     // catch is only triggered if an exception is thrown, which is
-            //     // likely due to a network error.
-            //     // If fetch() returns a valid HTTP response with a response code in
-            //     // the 4xx or 5xx range, the catch() will NOT be called.
-            //     console.log("Fetch failed; returning offline page instead.", error);
-
-            //     const matchCached = await caches.match(e.request);
-            //     if (matchCached && matchCached.ok && matchCached.status) return matchCached;
-            //     else {
-            //         if (e.request.mode === "navigate") {
-            //             const cachedResponse = await cache.match(OFFLINE_URL);
-            //             return cachedResponse;
-            //         }
-            //         console.log(`The link ${e.request.url} is not cached`);
-            //         alert(`The link ${e.request.url} is not cached`);
-            //     }
-
-            // }
 
 
         })()
