@@ -20,7 +20,7 @@ setInterval(() => {
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-        .register('/mynotespwa/sw.js')
+        .register('/mynotespwa/sw.js?t=' + Date.now())
         .then(() => { console.log('Service Worker Registered'); })
         .catch(function (err) {
             console.warn('Error whilst registering service worker', err);
