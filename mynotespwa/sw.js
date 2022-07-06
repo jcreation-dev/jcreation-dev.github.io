@@ -9,13 +9,16 @@ self.addEventListener('install', (e) => {
             '/mynotespwa/images/icons/icon-72x72.png',
             '/mynotespwa/images/icons/icon-96x96.png',
             '/mynotespwa/images/icons/icon-128x128.png',
-            '/mynotespwa/images/icons/icon-144x144.png',
+            //'/mynotespwa/images/icons/icon-144x144.png',
             '/mynotespwa/',
             '/mynotespwa/index.html',
             '/mynotespwa/index.js',
             '/mynotespwa/style.css',
-            'offline.html',
-        ])),
+            new Request(OFFLINE_URL, { cache: "reload" }),
+        ])).then(() => {
+            // Force the waiting service worker to become the active service worker.
+            self.skipWaiting();
+        }),
     );
 });
 
@@ -78,7 +81,7 @@ self.addEventListener('fetch', (e) => {
                         const cachedResponse = await cache.match(OFFLINE_URL);
                         return cachedResponse;
                     }
-
+                    console.log(`The link ${e.request.url} is not cached`);
                     alert(`The link ${e.request.url} is not cached`);
                 }
 
