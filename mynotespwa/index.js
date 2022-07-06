@@ -10,7 +10,7 @@ function randomValueFromArray(array) {
 
 setInterval(() => {
     const randomChoice = randomValueFromArray(images);
-    imgElem.src = `images/icons/${randomChoice}.jpg`;
+    imgElem.src = `images/icons/${randomChoice}.png`;
 }, 2000);
 
 
