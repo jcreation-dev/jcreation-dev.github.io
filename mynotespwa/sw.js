@@ -1,10 +1,9 @@
 self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open('icon-store').then((cache) => cache.addAll([
-            '/mynotespwa/images/icons/icon-72x72.png',
-            '/mynotespwa/images/icons/icon-96x96.png',
-            '/mynotespwa/images/icons/icon-128x128.png',
-            '/mynotespwa/images/icons/icon-144x144.png',
+            'https://popper.js.org',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css',
             '/mynotespwa/',
             '/mynotespwa/index.html',
             '/mynotespwa/index.js',
