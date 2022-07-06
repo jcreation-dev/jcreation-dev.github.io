@@ -17,7 +17,10 @@ setInterval(() => {
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
         .register('/mynotespwa/sw.js')
-        .then(() => { console.log('Service Worker Registered'); });
+        .then(() => { console.log('Service Worker Registered'); })
+        .catch(function (err) {
+            console.warn('Error whilst registering service worker', err);
+        });
 }
 
 // Code to handle install prompt on desktop
