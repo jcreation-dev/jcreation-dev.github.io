@@ -1,4 +1,3 @@
-"use strict";
 const OFFLINE_URL = "offline.html";
 console.log(`Updated SW`);
 
@@ -59,13 +58,13 @@ self.addEventListener('fetch', (e) => {
         (async () => {
             // First, try to use the navigation preload response if it's
             // supported.
-            const preloadResponse = await e.preloadResponse;
-            if (preloadResponse) {
-                return preloadResponse;
-            }
+
 
             try {
-
+                const preloadResponse = await e.preloadResponse;
+                if (preloadResponse) {
+                    return preloadResponse;
+                }
                 // Always try the network first.
                 const networkResponse = await fetch(e.request);
                 console.log("user is online");
