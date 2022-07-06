@@ -1,5 +1,6 @@
 "use strict";
 const OFFLINE_URL = "offline.html";
+console.log(`Updated SW`);
 
 self.addEventListener('install', (e) => {
     e.waitUntil(
