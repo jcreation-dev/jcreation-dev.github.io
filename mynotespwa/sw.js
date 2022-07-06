@@ -1,9 +1,9 @@
 "use strict";
+const OFFLINE_URL = "offline.html";
 
 self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open('icon-store').then((cache) => cache.addAll([
-            'https://popper.js.org',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css',
             '/mynotespwa/images/icons/icon-72x72.png',
@@ -14,6 +14,7 @@ self.addEventListener('install', (e) => {
             '/mynotespwa/index.html',
             '/mynotespwa/index.js',
             '/mynotespwa/style.css',
+            '/mynotespwa/offline.html',
         ])),
     );
 });
@@ -48,38 +49,45 @@ self.addEventListener('fetch', (e) => {
     // If no fetch handlers call event.respondWith(), the request
     // will be handled by the browser as if there were no service
     // worker involvement.
+    if (event.request.mode === "navigate") {
+        e.respondWith(
+            (async () => {
+                try {
+                    // First, try to use the navigation preload response if it's
+                    // supported.
+                    const preloadResponse = await e.preloadResponse;
+                    if (preloadResponse) {
+                        return preloadResponse;
+                    }
 
-    e.respondWith(
-        (async () => {
-            try {
-                // First, try to use the navigation preload response if it's
-                // supported.
-                const preloadResponse = await e.preloadResponse;
-                if (preloadResponse) {
-                    return preloadResponse;
+                    // Always try the network first.
+                    console.log("user is online");
+                    const networkResponse = await fetch(e.request);
+                    console.log(networkResponse);
+                    return networkResponse;
+                } catch (error) {
+                    // catch is only triggered if an exception is thrown, which is
+                    // likely due to a network error.
+                    // If fetch() returns a valid HTTP response with a response code in
+                    // the 4xx or 5xx range, the catch() will NOT be called.
+                    console.log("Fetch failed; returning offline page instead.", error);
+
+                    const matchCached = await caches.match(e.request);
+                    console.log(matchCached);
+                    if (matchCached.ok && matchCached.status) return matchCached;
+                    else {
+                        alert(`The link ${e.request.url} is not cached`);
+                        const cachedResponse = await cache.match(OFFLINE_URL);
+                        return cachedResponse;
+                    }
+
                 }
-
-                // Always try the network first.
-                console.log("user is online");
-                const networkResponse = await fetch(e.request);
-                console.log(networkResponse);
-                return networkResponse;
-            } catch (error) {
-                // catch is only triggered if an exception is thrown, which is
-                // likely due to a network error.
-                // If fetch() returns a valid HTTP response with a response code in
-                // the 4xx or 5xx range, the catch() will NOT be called.
-                console.log("Fetch failed; returning offline page instead.", error);
-
-                const matchCached = await caches.match(e.request);
-                console.log(matchCached);
-                return matchCached || await fetch(e.request);
-                const cache = await caches.open(CACHE_NAME);
-                const cachedResponse = await cache.match(OFFLINE_URL);
-                return cachedResponse;
-            }
-        })()
-    );
-
+            })()
+        );
+    } else {
+        e.respondWith(
+            caches.match(e.request).then((response) => response)
+        );
+    }
 });
 
