@@ -1,10 +1,14 @@
 self.addEventListener('install', (e) => {
     e.waitUntil(
         caches.open('icon-store').then((cache) => cache.addAll([
-            'images/icons/icon-72x72.png',
-            'images/icons/icon-96x96.png',
-            'images/icons/icon-128x128.png',
-            'images/icons/icon-144x144.png',
+            '/mynotespwa/images/icons/icon-72x72.png',
+            '/mynotespwa/images/icons/icon-96x96.png',
+            '/mynotespwa/images/icons/icon-128x128.png',
+            '/mynotespwa/images/icons/icon-144x144.png',
+            '/mynotespwa/',
+            '/mynotespwa/index.html',
+            '/mynotespwa/index.js',
+            '/mynotespwa/style.css',
         ])),
     );
 });
