@@ -62,6 +62,7 @@ self.addEventListener('fetch', (e) => {
                 // Always try the network first.
                 console.log("user is online");
                 const networkResponse = await fetch(e.request);
+                console.log(networkResponse);
                 return networkResponse;
             } catch (error) {
                 // catch is only triggered if an exception is thrown, which is
