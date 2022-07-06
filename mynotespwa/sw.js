@@ -49,7 +49,7 @@ self.addEventListener('fetch', (e) => {
     // If no fetch handlers call event.respondWith(), the request
     // will be handled by the browser as if there were no service
     // worker involvement.
-    if (event.request.mode === "navigate") {
+    if (e.request.mode === "navigate") {
         e.respondWith(
             (async () => {
                 try {
