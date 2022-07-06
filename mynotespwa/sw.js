@@ -14,7 +14,7 @@ self.addEventListener('install', (e) => {
             '/mynotespwa/index.html',
             '/mynotespwa/index.js',
             '/mynotespwa/style.css',
-            '/mynotespwa/offline.html',
+            'offline.html',
         ])),
     );
 });
@@ -60,11 +60,9 @@ self.addEventListener('fetch', (e) => {
                 if (preloadResponse) {
                     return preloadResponse;
                 }
-
                 // Always try the network first.
-                console.log("user is online");
                 const networkResponse = await fetch(e.request);
-                console.log(networkResponse);
+                console.log("user is online");
                 return networkResponse;
             } catch (error) {
                 // catch is only triggered if an exception is thrown, which is
@@ -74,7 +72,6 @@ self.addEventListener('fetch', (e) => {
                 console.log("Fetch failed; returning offline page instead.", error);
 
                 const matchCached = await caches.match(e.request);
-                console.log(matchCached);
                 if (matchCached.ok && matchCached.status) return matchCached;
                 else {
                     if (e.request.mode === "navigate") {
