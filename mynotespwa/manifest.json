@@ -2,6 +2,7 @@
     "name": "My Notes",
     "short_name": "My Notes",
     "start_url": ".",
+    "prefer_related_applications": true,
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#fff",
