@@ -49,45 +49,45 @@ self.addEventListener('fetch', (e) => {
     // If no fetch handlers call event.respondWith(), the request
     // will be handled by the browser as if there were no service
     // worker involvement.
-    if (e.request.mode === "navigate") {
-        e.respondWith(
-            (async () => {
-                try {
-                    // First, try to use the navigation preload response if it's
-                    // supported.
-                    const preloadResponse = await e.preloadResponse;
-                    if (preloadResponse) {
-                        return preloadResponse;
-                    }
+    console.log(e.request.mode);
 
-                    // Always try the network first.
-                    console.log("user is online");
-                    const networkResponse = await fetch(e.request);
-                    console.log(networkResponse);
-                    return networkResponse;
-                } catch (error) {
-                    // catch is only triggered if an exception is thrown, which is
-                    // likely due to a network error.
-                    // If fetch() returns a valid HTTP response with a response code in
-                    // the 4xx or 5xx range, the catch() will NOT be called.
-                    console.log("Fetch failed; returning offline page instead.", error);
+    e.respondWith(
+        (async () => {
+            try {
+                // First, try to use the navigation preload response if it's
+                // supported.
+                const preloadResponse = await e.preloadResponse;
+                if (preloadResponse) {
+                    return preloadResponse;
+                }
 
-                    const matchCached = await caches.match(e.request);
-                    console.log(matchCached);
-                    if (matchCached.ok && matchCached.status) return matchCached;
-                    else {
-                        alert(`The link ${e.request.url} is not cached`);
+                // Always try the network first.
+                console.log("user is online");
+                const networkResponse = await fetch(e.request);
+                console.log(networkResponse);
+                return networkResponse;
+            } catch (error) {
+                // catch is only triggered if an exception is thrown, which is
+                // likely due to a network error.
+                // If fetch() returns a valid HTTP response with a response code in
+                // the 4xx or 5xx range, the catch() will NOT be called.
+                console.log("Fetch failed; returning offline page instead.", error);
+
+                const matchCached = await caches.match(e.request);
+                console.log(matchCached);
+                if (matchCached.ok && matchCached.status) return matchCached;
+                else {
+                    if (e.request.mode === "navigate") {
                         const cachedResponse = await cache.match(OFFLINE_URL);
                         return cachedResponse;
                     }
 
+                    alert(`The link ${e.request.url} is not cached`);
                 }
-            })()
-        );
-    } else {
-        e.respondWith(
-            caches.match(e.request).then((response) => response)
-        );
-    }
+
+            }
+        })()
+    );
+
 });
 
