@@ -10,4 +10,4 @@ Venn App
 4. Uses fontawesome-free
 5. Uses JQuery
 
-You can go to the demo in jcreation-dev.github.io/venn-diagram-with-set-operations
+You can go to the demo in https://jcreation-dev.github.io/venn-diagram-with-set-operations/
