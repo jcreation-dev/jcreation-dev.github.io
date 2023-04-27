@@ -7,3 +7,6 @@ PWA mynotes
 - will sync notes automatically or manually when connected to internet, can be change in setting
 - push notification
 - background process over the phone, can set reminder, will receive push notif when time meet.
+
+
+https://jcreation-dev.github.io/mynotespwa/
