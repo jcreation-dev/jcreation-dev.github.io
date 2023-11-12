@@ -1,0 +1,17 @@
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-2.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-3.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-4.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-5.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-6.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-7.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-8.jpg
+https://jcreation-io.web.app/assets/img/portfolio/portfolio-9.jpg
+https://jcreation-io.web.app/assets/img/testimonials/testimonials-1.jpg
+https://jcreation-io.web.app/assets/img/testimonials/testimonials-2.jpg
+https://jcreation-io.web.app/assets/img/testimonials/testimonials-3.jpg
+https://jcreation-io.web.app/assets/img/testimonials/testimonials-4.jpg
+https://jcreation-io.web.app/assets/img/testimonials/testimonials-5.jpg
+https://jcreation-io.web.app/assets/img/hero-bg.gif
+https://jcreation-io.web.app/assets/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2?a74547b2f0863226942ff8ded57db345
+https://jcreation-io.web.app/assets/vendor/boxicons/fonts/boxicons.woff2
+https://jcreation-io.web.app/assets/img/favicon.png
